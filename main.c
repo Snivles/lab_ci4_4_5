@@ -8,20 +8,21 @@ int main()
     char news1[1000] = "";
 
     for (int i = 0; s1[i] != '\0'; i++){
-          if (s1[i]=='.'){s1[i+1]='\0';} // конец строки дальше не смотрим
+          if (s1[i]=='.'){s1[i]='\0';} // конец строки дальше не смотрим
           char slovo[1000] = "";
           int count = 0;//счетчик длины нынешнего слова
           int flag = 1;
-          if(s1[i] != ' ' || s1[i] != ','){
-              while (s1[i] != ' ' || s1[i] != ',' || s1[i] !='.'){
-                  slovo[count] = s1[i];
+            while (s1[i+count] != ' ' && s1[i+count] != ',' && s1[i+count != '.']){
+                  slovo[count] = s1[i+count];
+                  count++;
                   if ( count > (int)lenw && s1[i+count] !=w[count]){
-                    flag = 0;
+                    flag = 0;}}
+          slovo[count] = '\0';
           if (flag ==1){
-                  i += lenw -1;}
+                i += lenw -1;}
           else{
-                  i += count -1;}}}}
-                  printf("Слово отличное от w: %s",slovo);}
+                i += count -1;
+                printf("Слово отличное от w: %s",slovo);}}
 
     return 0;
 }
