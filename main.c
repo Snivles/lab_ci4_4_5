@@ -13,6 +13,7 @@ int main()
                 s1[index] = s1[i];
                 index++;}
 }
-    printf("Hello World!\n");
+    s1[index] ='\0';
+    printf("Строка s1 без символов s2 имеет вид %s\n",s1);
     return 0;
 }
