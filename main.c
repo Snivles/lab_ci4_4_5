@@ -6,23 +6,27 @@ int main()
     char w[1000] = "abc";// символ который пропускаем
     size_t lenw = strlen(w);
     char news1[1000] = "";
-
-    for (int i = 0; s1[i] != '\0'; i++){
-          if (s1[i]=='.'){s1[i]='\0';} // конец строки дальше не смотрим
+    int i = 0;
+    while(s1[i]!='\0'){
+          if (s1[i] == ' ' || s1[i] == ',' || s1[i] == '.') {
+              i++;  // просто пропускаем разделитель
+              continue;} // конец строки дальше не смотрим
           char slovo[1000] = "";
           int count = 0;//счетчик длины нынешнего слова
           int flag = 1;
-            while (s1[i+count] != ' ' && s1[i+count] != ',' && s1[i+count != '.']){
+            while (s1[i+count] != ' ' && s1[i+count] != ',' && s1[i+count] != '.' && s1[i+count] != '\0'){
                   slovo[count] = s1[i+count];
-                  count++;
-                  if ( count > (int)lenw && s1[i+count] !=w[count]){
-                    flag = 0;}}
+                  if ( count > (int)lenw || slovo[count] !=w[count]){
+                    flag = 0;}
+                  count++;}
+
           slovo[count] = '\0';
+
           if (flag ==1){
-                i += lenw -1;}
+                i += count;}
           else{
-                i += count -1;
-                printf("Слово отличное от w: %s",slovo);}}
+                i += count;
+                printf("Слово отличное от w: %s\n",slovo);}}
 
     return 0;
 }
