@@ -2,7 +2,7 @@
 #include <string.h>
 int main()
 {
-    char s1[1000] = "abc, abc abc dabc abcd";// строка в которой пропускаем
+    char s1[1000] = "abc, abc abc dabc abcd.";// строка в которой пропускаем
     char w[1000] = "abc";// символ который пропускаем
     size_t lenw = strlen(w);
     char news1[1000] = "";
