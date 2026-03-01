@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-
+//s1 = "a ab abc abcd" s2 = abc / a ab abcd
+// s1 = "abc abcd abcd, abcde,abc, a bc adbc. adb" s2 = abc// abcd abcd abcde a bc adbc
+// s1 = "abc" s2 = "abcd" / abc
+// s1 = "Abc abcd abc" s2 = "abc" /
 char* Validation(char *s1){ // Валидация строки
       int i = 0;
       while (s1[i] != '\0'){
@@ -48,7 +51,7 @@ char* WritestringwithoutW(char *s1,char *w,char *news1){
 }
 int main()
 {
-    char s1[1000] = "a ab abc abcd";// строка в которой пропускаем
+    char s1[1000] = "Abc abc abc";// строка в которой пропускаем
     char w[1000] = "abc";// символ который пропускаем
     char news1[1000] = "";
     Validation(s1);
