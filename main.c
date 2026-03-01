@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-
+// s1 = 124 s2 = 4 /кратно
+// s1 =125 s2 = 4 / нет
+// s1 = A1224 s2 = 4/ Ошибка
+// s1 = 11124 s2 = 4 / кратно
 int Multipleofanumber(char *s1, int chislo){
     if (chislo < 0){
       printf("Делитель должен быть положительныим числом ");
@@ -19,7 +22,7 @@ int Multipleofanumber(char *s1, int chislo){
 
 int main()
 {
-    char s1[1000] = "124";
+    char s1[1000] = "11124";
     int chislo = 4;
     if(Multipleofanumber(s1,chislo)==0){
       printf("Да число кратно 4");}
