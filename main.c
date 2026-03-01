@@ -16,25 +16,27 @@ char* Validation(char *s1){ // Валидация строки
       return s1;}
 
 
-char* WritestringwithoutW(char *s1,char *w,char *news1){ //функция отбора слов отличных от w в строчке s1
+char* WritestringwithoutW(char *s1,char *w,char *news1){
     size_t lenw = strlen(w);
     int i = 0;
     int k = 0;
     while(s1[i]!='\0'){
           if (s1[i] == ' ') {
               i++;  // просто пропускаем разделитель
-              continue;} // конец строки дальше не смотрим
+              continue;}
           char slovo[1000] = "";
           int count = 0;//счетчик длины нынешнего слова
           int flag = 1;
             while (s1[i+count] != ' ' && s1[i+count] != '\0'){
                   slovo[count] = s1[i+count];
-                  if ( count > (int)lenw || slovo[count] !=w[count]){
-                    flag = 0;}
                   count++;}
-
           slovo[count] = '\0';// слово отлично от w
-          if (flag != 1){
+
+          if (count != (int)lenw){flag = 0;}
+          else{
+            for (int j =0; j < count; j++){
+                if (slovo[j]!= w[j]){flag = 0; break;}}}
+          if (flag == 0){
               if (k>0){news1[k] = ' '; k++;}
               for (int h = 0; slovo[h] != '\0'; h++){
                     news1[k] = slovo[h];
@@ -44,13 +46,9 @@ char* WritestringwithoutW(char *s1,char *w,char *news1){ //функция отб
 
     return news1;
 }
-
-
-
-
 int main()
 {
-    char s1[1000] = "abcd, abc abc dabc fbcd. abcde";// строка в которой пропускаем
+    char s1[1000] = "a ab abc abcd";// строка в которой пропускаем
     char w[1000] = "abc";// символ который пропускаем
     char news1[1000] = "";
     Validation(s1);
