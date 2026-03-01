@@ -15,17 +15,11 @@ char* Validation(char *s1){ // Валидация строки
 
       return s1;}
 
-int main()
-{
-    char s1[1000] = "abcd, abc abc dabc fbcd. abcde";// строка в которой пропускаем
-    char w[1000] = "abc";// символ который пропускаем
+
+char* WritestringwithoutW(char *s1,char *w,char *news1){ //функция отбора слов отличных от w в строчке s1
     size_t lenw = strlen(w);
-    char news1[1000] = "";
     int i = 0;
-
-    Validation(s1);
-
-
+    int k = 0;
     while(s1[i]!='\0'){
           if (s1[i] == ' ') {
               i++;  // просто пропускаем разделитель
@@ -39,13 +33,28 @@ int main()
                     flag = 0;}
                   count++;}
 
-          slovo[count] = '\0';
+          slovo[count] = '\0';// слово отлично от w
+          if (flag != 1){
+              if (k>0){news1[k] = ' '; k++;}
+              for (int h = 0; slovo[h] != '\0'; h++){
+                    news1[k] = slovo[h];
+                    k++;}
+              news1[k] ='\0';}
+        i+= count;}
 
-          if (flag ==1){
-                i += count;}
-          else{
-                i += count;
-                printf("Слово отличное от w: %s\n",slovo);}}
+    return news1;
+}
 
+
+
+
+int main()
+{
+    char s1[1000] = "abcd, abc abc dabc fbcd. abcde";// строка в которой пропускаем
+    char w[1000] = "abc";// символ который пропускаем
+    char news1[1000] = "";
+    Validation(s1);
+    WritestringwithoutW(s1,w,news1);
+    printf("Слова которые остались: %s",news1);
     return 0;
 }
