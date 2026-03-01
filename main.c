@@ -17,8 +17,8 @@ char* Stringcompaction(char *s1, char *s2){
 
 
 int main()
-{   char s1[1000] = "Hello World!";
-    char s2[1000] = "l";
+{   char s1[1000] = "abcd";
+    char s2[1000] = "abcd";
 
 
     Stringcompaction(s1,s2);
