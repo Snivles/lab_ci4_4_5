@@ -22,6 +22,7 @@ char* Validation(char *s1){ // Валидация строки
 
 
 char* WritestringwithoutW(char *s1,char *w,char *news1){
+    if(s1&& w && news1){
     size_t lenw = strlen(w);
     int i = 0;
     int k = 0;
@@ -48,16 +49,22 @@ char* WritestringwithoutW(char *s1,char *w,char *news1){
                     k++;}
               news1[k] ='\0';}
         i+= count;}
-    return news1;
+    return news1;}
+    return NULL;
 }
 int main()
 {
     char s1[1000] = "i pass point, sorry";// строка в которой пропускаем
     char w[1000] = "sorry";// символ который пропускаем
     char news1[1000] = "";
+    char *null_cheak = NULL;
     Validation(s1);
-    if (s1[0] == '\0'){printf("Eror"); return 0;}
-    WritestringwithoutW(s1,w,news1);
-    printf("Remaining words:%s",news1);
-    return 0;
+    if (s1[0] == '\0'){printf("Error"); return 0;}
+    char *res = WritestringwithoutW(s1,w,news1);
+    if(res){
+      printf("Remaining words:%s",news1);
+      return 0;}
+    else{
+      printf("Error%s",news1);
+      return 0;}
 }
