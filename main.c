@@ -6,18 +6,16 @@
 // s1 = A1224 s2 = 4/ Ошибка
 // s1 = 11124 s2 = 4 / кратно
 int Multipleofanumber(char *s1, int chislo){
-    if (chislo < 0){
-      printf("Делитель должен быть положительныим числом ");
-      return 0;}
-    size_t len = strlen(s1); // объявляем длину s1
-    for (int i =len-1 ; i>=0;i--){
+    int i = 0;
+    while(s1[i]!='\0'){
         if(s1[i] < 48 || s1[i]> 57){
-            printf("Строчка не в десятичной сис");
-            return 0;}  }
+            return -1;}
+        i++;}
     int ostat = 0;
-    for (int i = 0; i <(int)len; i++){
+    while(s1[i] != '\0'){
         int delim = s1[i] - '0';
-        ostat = (10 * ostat + delim) % chislo;}
+        ostat = (10 * ostat + delim) % chislo;
+        i++;}
     return (ostat);}
 
 int main()
@@ -26,7 +24,8 @@ int main()
     int chislo = 4;
     if(Multipleofanumber(s1,chislo)==0){
       printf("Да число кратно 4");}
-
+    else if(Multipleofanumber(s1,chislo)==-1){
+      printf("Строчка не в десятичной сис");}
     else{
       printf("Нет число не кратно");}
     return 0;
