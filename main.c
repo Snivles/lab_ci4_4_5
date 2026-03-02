@@ -14,6 +14,7 @@
 // a@b#c$ @#$ / получаем ответ abc тк спецсимволы хорошо удалились
 // aaa a / пустота , тк повторы все удалились отработала программа корректно
 // Аа а / выдается � тк опять происходит поломка
+// Привет ив / выдает П���е это означает что некоторые символы повредились , а некоторые по случайности остались целыми
 char* Stringcompaction(char *s1, char *s2){
     if(s1 && s2){
     int s3[256] = {0};
@@ -25,11 +26,10 @@ char* Stringcompaction(char *s1, char *s2){
     int index = 0;
     i = 0;
     while (s1[i] != '\0'){
-        unsigned char elem = (unsigned char)s1[i];
-        if (s3[(unsigned char)s1[i]]==0){
+        char elem =  (unsigned char)s1[i];
+        if (s3[elem]==0){
             s1[index] = s1[i];
             index++;}
-        else{printf("%d, %d, %c \n",elem, s1[i], elem);}
         i++;}
     s1[index]='\0';
     return s1;}
@@ -40,9 +40,8 @@ char* Stringcompaction(char *s1, char *s2){
 
 
 int main()
-{
-    char s1[1000] = "Привет";
-    char s2[1000] = "xyz";
+{   char s1[1000] = "Привет";
+    char s2[1000] = "ив";
     char *nullcheak = NULL;
     char *res = Stringcompaction(s1,s2);
     if (!res){printf("Error with NULL!");}
