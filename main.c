@@ -4,17 +4,19 @@
 // s1 = "abc abcd abcd, abcde,abc, a bc adbc. adb" s2 = abc// abcd abcd abcde a bc adbc
 // s1 = "abc" s2 = "abcd" / abc
 // s1 = "Abc abcd abc" s2 = "abc" /
+// s1 = adaf,jjhjabc, abc, , ,abcF. fggh s2= abc / Ошибка
+// s1 = i pass point, sorry s2 = sorry / i pass point
 char* Validation(char *s1){ // Валидация строки
       int i = 0;
       while (s1[i] != '\0'){
           if (s1[i] == '.'){s1[i] = '\0';
               break;}
           else if (s1[i] == ','){s1[i] = ' '; i++;}
-          else if (s1[i] >= 97 && s1[i] <= 122){ i++;}
+          else if (s1[i] >= 97 && s1[i] <= 122) { i++;}
           else if (s1[i] == ' '){i++;}
           else{
               s1[0] = '\0';
-              break;}}
+              return "\0";}}
 
       return s1;}
 
@@ -46,16 +48,16 @@ char* WritestringwithoutW(char *s1,char *w,char *news1){
                     k++;}
               news1[k] ='\0';}
         i+= count;}
-
     return news1;
 }
 int main()
 {
-    char s1[1000] = "Abc abc abc";// строка в которой пропускаем
-    char w[1000] = "abc";// символ который пропускаем
+    char s1[1000] = "i pass point, sorry";// строка в которой пропускаем
+    char w[1000] = "sorry";// символ который пропускаем
     char news1[1000] = "";
     Validation(s1);
+    if (s1[0] == '\0'){printf("Eror"); return 0;}
     WritestringwithoutW(s1,w,news1);
-    printf("Слова которые остались: %s",news1);
+    printf("Remaining words:%s",news1);
     return 0;
 }
