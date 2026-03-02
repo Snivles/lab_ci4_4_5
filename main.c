@@ -20,13 +20,13 @@ int Multipleofanumber(char *s1, int chislo){
 
 int main()
 {
-    char s1[1000] = "11124";
+    char s1[1000] = "11124H";
     int chislo = 4;
     if(Multipleofanumber(s1,chislo)==0){
-      printf("Да число кратно 4");}
+      printf("Yes");}
     else if(Multipleofanumber(s1,chislo)==-1){
-      printf("Строчка не в десятичной сис");}
+      printf("Error");}
     else{
-      printf("Нет число не кратно");}
+      printf("No");}
     return 0;
 }
