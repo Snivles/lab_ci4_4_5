@@ -5,6 +5,9 @@
 // s1 =125 s2 = 4 / нет
 // s1 = A1224 s2 = 4/ Ошибка
 // s1 = 11124 s2 = 4 / кратно
+// s1 = 213123124124 s2 = 4 / кратно
+// s1 = 1231241243  s2= 4 / Error
+
 int Multipleofanumber(char *s1, int chislo){
     int i = 0;
     while(s1[i]!='\0'){
@@ -20,7 +23,7 @@ int Multipleofanumber(char *s1, int chislo){
 
 int main()
 {
-    char s1[1000] = "11124H";
+    char s1[1000] = "1231241243";
     int chislo = 4;
     if(Multipleofanumber(s1,chislo)==0){
       printf("Yes");}
