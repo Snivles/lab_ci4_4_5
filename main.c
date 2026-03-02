@@ -18,9 +18,11 @@ char* Stringcompaction(char *s1, char *s2){
     int index = 0;
     i = 0;
     while (s1[i] != '\0'){
+        unsigned char elem = (unsigned char)s1[i];
         if (s3[(unsigned char)s1[i]]==0){
             s1[index] = s1[i];
             index++;}
+        else{printf("%d, %d, %c \n",elem, s1[i], elem);}
         i++;}
     s1[index]='\0';
     return s1;}
@@ -31,11 +33,11 @@ char* Stringcompaction(char *s1, char *s2){
 
 
 int main()
-{   setlocale(LC_ALL, NULL);
+{   setlocale(LC_ALL, "RU");
     char s1[1000] = "Russian language is a Русский язык";
     char s2[1000] = "sgaeс";
     char *nullcheak = NULL;
-    char *res = Stringcompaction(nullcheak,s2);
+    char *res = Stringcompaction(s1,s2);
     if (!res){printf("Ошибка передаем NULL указатель!");}
     else{printf("String s1 with s2 removed: %s\n",s1);}
     return 0;
