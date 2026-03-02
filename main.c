@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-
+// abcdE /Abcd / aE
+//Dima and Kirill / il /DmaandKr
 char* Stringcompaction(char *s1, char *s2){
     int s3[256] = {0};
     int i = 0;
@@ -22,11 +23,11 @@ char* Stringcompaction(char *s1, char *s2){
 
 
 int main()
-{   char s1[1000] = "abcdE";
-    char s2[1000] = "abcd";
+{   char s1[1000] = "Dima and Kirill";
+    char s2[1000] = "il ";
 
 
     Stringcompaction(s1,s2);
-    printf("Строка s1 без символов s2 имеет вид %s\n",s1);
+    printf("String s1 with s2 removed: %s\n",s1);
     return 0;
 }
