@@ -12,8 +12,12 @@
 // s1 = 2147483647 / s2 = 4 /No
 // s1 = 2147483647 / s2 = 0 /Error
 // s1 = -12464 / s2 = 4 / Yes
+// s1 = -12465 / s2 = 4 / No
 // s1 = 0 / s2 =4 / Yes
 // s1 = Abc124Дима; s2 = 4 / Error
+// s1 = "" s2 = 4 ; Error
+// s1 = "-" s2 = 4 ; Error
+// s1 = "1234&" s2 = 4 ; Error
 int Multipleofanumber(char *s1, int chislo){
     if (s1){
       if(chislo< 0){chislo = -chislo;}
@@ -22,6 +26,7 @@ int Multipleofanumber(char *s1, int chislo){
       int flag = 0;
       if (s1[0] == '-'){
           flag = 1;}
+      if (s1[0] == '\0' || s1[flag] =='\0'){return -1;}
       int i = flag;
       while(s1[i]!='\0'){
           if(s1[i] < 48 || s1[i]> 57){
@@ -42,7 +47,7 @@ int Multipleofanumber(char *s1, int chislo){
 
 int main()
 {
-    char s1[1000] = "Abc124Дима";
+    char s1[1000] = "1234&";
     char *null_test = NULL;
     int chislo = 4;
 
