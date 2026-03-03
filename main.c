@@ -26,7 +26,8 @@ char* Stringcompaction(char *s1, char *s2){
     int index = 0;
     i = 0;
     while (s1[i] != '\0'){
-        char elem =  (unsigned char)s1[i];
+        unsigned char elem =  (unsigned char)s1[i];
+        printf("%d %c\n",elem,elem);
         if (s3[elem]==0){
             s1[index] = s1[i];
             index++;}
@@ -40,7 +41,7 @@ char* Stringcompaction(char *s1, char *s2){
 
 
 int main()
-{   char s1[1000] = "Привет";
+{   char s1[1000] = "Аривет";
     char s2[1000] = "ив";
     char *nullcheak = NULL;
     char *res = Stringcompaction(s1,s2);
