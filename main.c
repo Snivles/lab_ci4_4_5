@@ -13,6 +13,7 @@
 // пустота abcd / передаем пустоту и тк нечего удалять получается пустота / обратно наборот ничего не удалит и выведет все символы
 // a@b#c$ @#$ / получаем ответ abc тк спецсимволы хорошо удалились
 // aaa a / пустота , тк повторы все удалились отработала программа корректно
+// abcd ура / NULL
 char* Stringcompaction(char *s1, char *s2){
     if(s1 && s2){
     int s3[128] = {0};
@@ -41,8 +42,8 @@ char* Stringcompaction(char *s1, char *s2){
 
 
 int main()
-{   char s1[1000] = "Привет";
-    char s2[1000] = "xyz";
+{   char s1[1000] = "abcd";
+    char s2[1000] = "ура";
     char *nullcheak = NULL;
     char *res = Stringcompaction(s1,s2);
 
