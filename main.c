@@ -18,6 +18,27 @@
 // s1 = "" s2 = 4 ; Error
 // s1 = "-" s2 = 4 ; Error
 // s1 = "1234&" s2 = 4 ; Error
+
+
+bool Validation(char *s1)
+{
+  if (s1 == NULL){ return false;}
+
+  if (s1[0]=='\0'){return false;}
+  int i = 0;
+  if (s1[i]=='-'){
+      i = 1;
+      if (s1[i] == '\0'){return false;}}
+
+  while (s1[i] != '0'){
+      if (s1[i] < 48 || s1[i] > 57){
+          return false;
+          }
+      i++;}
+  return true;
+}
+
+
 int Multipleofanumber(char *s1, int chislo){
     if (s1){
       if(chislo< 0){chislo = -chislo;}
