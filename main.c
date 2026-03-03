@@ -19,8 +19,7 @@ char* Stringcompaction(char *s1, char *s2){
     int i = 0;
     while(s2[i] != '\0'){
         if (s2[i] < 0 || s2[i] > 127){
-          s1 = "Ошибка ввода";
-          return s1;}
+          return NULL;}
         s3[(int)s2[i]] = 1;
         i++;
 
@@ -28,8 +27,7 @@ char* Stringcompaction(char *s1, char *s2){
     i = 0;
     while (s1[i] != '\0'){
         if (s1[i] < 0 || s1[i] > 127){
-          s1 = "Ошибка ввода";
-          return s1;}
+          return NULL;}
         int elem = (int)s1[i];
         if (s3[elem]==0){
             s1[index] = s1[i];
@@ -47,8 +45,8 @@ int main()
     char s2[1000] = "xyz";
     char *nullcheak = NULL;
     char *res = Stringcompaction(s1,s2);
+
     if (!res){printf("Error with NULL!");}
-    else if(res=="Ошибка ввода"){printf("Ошибка ввода");}
     else{printf("String s1 with s2 removed: %s\n",s1);}
     return 0;
 }
