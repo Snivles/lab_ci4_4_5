@@ -14,6 +14,8 @@
 // a@b#c$ @#$ / получаем ответ abc тк спецсимволы хорошо удалились
 // aaa a / пустота , тк повторы все удалились отработала программа корректно
 // abcd ура / NULL
+// qwerrtyuioplkjhgfdsaйцукенгшщздлорпавыфячсмтьиб qwe/ Error with NULL!
+// " " " " / пустой вывод
 char* Stringcompaction(char *s1, char *s2){
     if(s1 && s2){
     int s3[128] = {0};
@@ -22,7 +24,7 @@ char* Stringcompaction(char *s1, char *s2){
         if (s2[i] < 0 || s2[i] > 127){
           return NULL;}
         s3[(int)s2[i]] = 1;
-        i++;
+        i++;}
 
     int index = 0;
     i = 0;
@@ -35,16 +37,17 @@ char* Stringcompaction(char *s1, char *s2){
             index++;}
         i++;}
     s1[index]='\0';
-    return s1;}}
+    return s1;}
     else{
         return NULL;}}
 
 
 
 int main()
-{   char s1[1000] = "abcd";
-    char s2[1000] = "ура";
+{   char s1[1000] = "qwerrtyuioplkjhgfdsaйцукенгшщздлорпавыфячсмтьиб";
+    char s2[1000] = "qwe";
     char *nullcheak = NULL;
+    char *nullcheak2 = NULL;
     char *res = Stringcompaction(s1,s2);
 
     if (!res){printf("Error with NULL!");}
