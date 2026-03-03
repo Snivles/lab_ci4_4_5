@@ -30,7 +30,7 @@ bool Validation(char *s1)
       i = 1;
       if (s1[i] == '\0'){return false;}}
 
-  while (s1[i] != '0'){
+  while (s1[i] != '\0'){
       if (s1[i] < 48 || s1[i] > 57){
           return false;
           }
@@ -40,14 +40,18 @@ bool Validation(char *s1)
 
 
 int Multipleofanumber(char *s1, int chislo){
-    if (s1){
-      if(chislo< 0){chislo = -chislo;}
-        if (chislo==0){
-          return -1;}
-      int flag = 0;
-      if (s1[0] == '-'){
-          flag = 1;}
-      if (s1[0] == '\0' || s1[flag] =='\0'){return -1;}
+    if (!Validation(s1)){return -1;}
+
+    if(chislo< 0){
+          chislo = -chislo;
+          }
+    if (chislo==0){
+        return -1;}
+    int flag = 0;
+
+    if (s1[0] == '-'){
+        flag = 1;}
+    if (s1[0] == '\0' || s1[flag] =='\0'){return -1;}
       int i = flag;
       while(s1[i]!='\0'){
           if(s1[i] < 48 || s1[i]> 57){
@@ -59,16 +63,14 @@ int Multipleofanumber(char *s1, int chislo){
           int delim = s1[i] - '0';
           ostat = (10 * ostat + delim) % chislo;
           i++;}
-      return (ostat);}
-    else{
-      return -1;
+      return (ostat);
 }
-}
+
 
 
 int main()
 {
-    char s1[1000] = "1234&";
+    char s1[1000] = "-";
     char *null_test = NULL;
     int chislo = 4;
 
