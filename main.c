@@ -8,16 +8,22 @@
 // s1 = i pass point, sorry s2 = sorry / i pass point
 char* Validation(char *s1){ // Валидация строки
       int i = 0;
+      int flag= 1;
       while (s1[i] != '\0'){
-          if (s1[i] == '.'){s1[i] = '\0';
-              break;}
-          else if (s1[i] == ','){s1[i] = ' '; i++;}
-          else if (s1[i] >= 97 && s1[i] <= 122) { i++;}
-          else if (s1[i] == ' '){i++;}
+          if (s1[i] == '.'){
+              s1[i] = '\0';
+              flag = 0;}
+          else if (s1[i] == ','){
+              s1[i] = ' '; i++;}
+          else if (s1[i] >= 97 && s1[i] <= 122){
+              i++;}
+          else if (s1[i] == ' '){
+              i++;}
           else{
               s1[0] = '\0';
-              return "\0";}}
-
+              return "\0";}
+          if (flag==0){
+              return s1;}}
       return s1;}
 
 
@@ -41,7 +47,7 @@ char* WritestringwithoutW(char *s1,char *w,char *news1){
           if (count != (int)lenw){flag = 0;}
           else{
             for (int j =0; j < count; j++){
-                if (slovo[j]!= w[j]){flag = 0; break;}}}
+                if (slovo[j]!= w[j] & flag ==1){flag = 0;}}}
           if (flag == 0){
               if (k>0){news1[k] = ' '; k++;}
               for (int h = 0; slovo[h] != '\0'; h++){
@@ -54,7 +60,7 @@ char* WritestringwithoutW(char *s1,char *w,char *news1){
 }
 int main()
 {
-    char s1[1000] = "i pass point, sorry";// строка в которой пропускаем
+    char s1[1000] = "i pass point sorry. oFrry";// строка в которой пропускаем
     char w[1000] = "sorry";// символ который пропускаем
     char news1[1000] = "";
     char *null_cheak = NULL;
