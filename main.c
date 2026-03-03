@@ -21,7 +21,7 @@
 // s1 = 9999999999992 s2 = 4  ; Yes
 bool Cheaking(char *s1)
 {
-  if (s1 == NULL){ return false;}
+  if (!s1){ return false;}
 
   if (s1[0]=='\0'){return false;}
   int i = 0;
@@ -69,11 +69,11 @@ int Multipleofanumber(char *s1, int chislo){
 
 int main()
 {
-    char s1[1000] = "9999999999992";
+    char s1[1000] = "124";
     char *null_test = NULL;
     int chislo = 4;
 
-    int res = Multipleofanumber(s1,chislo);
+    int res = Multipleofanumber(NULL,chislo);
     if(res==0){
       printf("Yes");}
     else if(res==-1){
