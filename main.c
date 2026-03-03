@@ -10,24 +10,24 @@
 // s1 = NULL / s2 = 4 / Error
 // s1 = Дима124 / s2= 4 / Error
 // s1 = 2147483647 / s2 = 4 /No
-// s1 = -12464 / s2 = 4 / Yes
-// s1 = -12465 / s2 = 4 / No
+// s1 = -12464 / s2 = 4 / Error
+// s1 = -12465 / s2 = 4 / Error
 // s1 = 0 / s2 =4 / Yes
 // s1 = Abc124Дима; s2 = 4 / Error
 // s1 = "" s2 = 4 ; Error
 // s1 = "-" s2 = 4 ; Error
 // s1 = "1234&" s2 = 4 ; Error
-
-
-bool Validation(char *s1)
+// s1 = a s2 = 4 ; Error
+// s1 = 9999999999992 s2 = 4  ; Yes
+bool Cheaking(char *s1)
 {
   if (s1 == NULL){ return false;}
 
   if (s1[0]=='\0'){return false;}
   int i = 0;
-  if (s1[i]=='-'){
-      i = 1;
-      if (s1[i] == '\0'){return false;}}
+  //if (s1[i]=='-'){
+      //i = 1;
+      //if (s1[i] == '\0'){return false;}}
 
   while (s1[i] != '\0'){
       if (s1[i] < 48 || s1[i] > 57){
@@ -39,7 +39,7 @@ bool Validation(char *s1)
 
 
 int Multipleofanumber(char *s1, int chislo){
-    if (!Validation(s1)){return -1;}
+    if (!Cheaking(s1)){return -1;}
 
     if(chislo< 0){
           chislo = -chislo;
@@ -69,7 +69,7 @@ int Multipleofanumber(char *s1, int chislo){
 
 int main()
 {
-    char s1[1000] = "-";
+    char s1[1000] = "9999999999992";
     char *null_test = NULL;
     int chislo = 4;
 
