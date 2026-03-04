@@ -49,64 +49,72 @@ int Compress(char *s1){ // Валидация строки
       return 1;}
 
 
-int CleanW(char *w){
-      int i=0;
-      while (w[i] != '\0'){
-          if(w[i] == ' ' || w[i] == ','){
-            return -2;}
-         if (!(w[i] >= 97 && w[i] <= 122)) {
-             return -2;}
-          i++;}
-      return 1;
-}
+int Rabotacode(char *s1,int i  ,char *slovo){
+      int count = 0;//счетчик длины нынешнего слова
+      while (s1[i+count] != ' ' && s1[i+count] != '\0'){
+            slovo[count] = s1[i+count];
+            count++;}
+      slovo[count] = '\0';// слово отлично от w
+      return count;}
 
 
-char* WritestringwithoutW(char *s1,char *w,char *news1){
-    if(s1&& w && news1){
+int WritestringwithoutW(char *s1,char *w,int* news1){
+    if(!(s1&& w)){return -3;}
     size_t lenw = strlen(w);
     int i = 0;
+
+
+    while (w[i] != '\0'){
+        if(w[i] == ' ' || w[i] == ','){
+          return -2;}
+        if (!(w[i] >= 97 && w[i] <= 122)) {
+            return -2;}
+        i++;}
     int k = 0;
+    i = 0;
+
     while(s1[i]!='\0'){
           if (s1[i] == ' ') {
               i++;  // просто пропускаем разделитель
               continue;}
           char slovo[1000] = "";
-          int count = 0;//счетчик длины нынешнего слова
+          int count = Rabotacode(s1,i,slovo);
           int flag = 1;
-            while (s1[i+count] != ' ' && s1[i+count] != '\0'){
-                  slovo[count] = s1[i+count];
-                  count++;}
-          slovo[count] = '\0';// слово отлично от w
 
-          if (count != (int)lenw){flag = 0;}
+
+
+          if (count != (int)lenw){flag = 0;}// отличны по длине
           else{
             for (int j =0; j < count; j++){
-                if (slovo[j]!= w[j] && flag ==1){flag = 0;}}}
+                if (slovo[j]!= w[j] && flag ==1){flag = 0;}}} //сравнение по символам
           if (flag == 0){
-              if (k>0){news1[k] = ' '; k++;}
-              for (int h = 0; slovo[h] != '\0'; h++){
-                    news1[k] = slovo[h];
-                    k++;}
-              news1[k] ='\0';}
+              news1[k] = i;
+              k++;}
         i+= count;}
-    return news1;}
-    return NULL;// сделать после пар очистку строки
-}
+    news1[k] = -1; //конец массива
+    return 1;}
 int main()
 {
-    char s1[1000] = "abc,,,,abcd,,,,,,abcde,,,,,,abc ";// строка в которой пропускаем
+    char s1[1000] = "asdads,abcd";// строка в которой пропускаем
     char w[1000] = "abc";// символ который пропускаем
-    char news1[1000] = "";
+    int news1[1000] = {0};
     char *null_cheak = NULL;
     int rescompresss1 = Compress(s1);
-    int rescleanw = CleanW(w);
     if (rescompresss1 == -1){printf("Error with string s1"); return 0;}
-    else if(rescleanw== -2){printf("Error with string w"); return 0;}
-    char *res = WritestringwithoutW(s1,w,news1);
-    if(res){
-      printf("Remaining words:%s",news1);
+
+
+    int res = WritestringwithoutW(s1,w,news1);
+    if(res==1){
+      printf("Remaining words: ");
+      for(int i = 0; news1[i] != -1 ;i++){
+              int j = news1[i];
+              while (s1[j] != ' ' && s1[j] != '\0'){
+                printf("%c",s1[j]);
+                j++;}
+                printf(" ");}
       return 0;}
+    else if(res==-3){printf("Error with NULL");}
+    else if(res == -2){printf("Error with string w");}
     else{
-      printf("Error with NULL%s",news1);
       return 0;}
 }
