@@ -105,7 +105,7 @@ int main()
 
     int res = WritestringwithoutW(s1,w,news1);
     if(res==1){
-      printf("Remaining words: ");
+      printf("Remaining words:");
       for(int i = 0; news1[i] != -1 ;i++){
               int j = news1[i];
               while (s1[j] != ' ' && s1[j] != '\0'){
