@@ -7,7 +7,7 @@
 // s1 = 11124 s2 = 4 / кратно
 // s1 = 213123124124 s2 = 4 / кратно
 // s1 = 1231241243  s2= 4 / Error
-// s1 = NULL / s2 = 4 / Error
+// s1 = NULL / s2 = 4 / Error with NULL
 // s1 = Дима124 / s2= 4 / Error
 // s1 = 2147483647 / s2 = 4 /No
 // s1 = -12464 / s2 = 4 / Error
@@ -19,65 +19,52 @@
 // s1 = "1234&" s2 = 4 ; Error
 // s1 = a s2 = 4 ; Error
 // s1 = 9999999999992 s2 = 4  ; Yes
-bool Cheaking(char *s1)
-{
-  if (!s1){ return false;}
 
-  if (s1[0]=='\0'){return false;}
-  int i = 0;
-  //if (s1[i]=='-'){
-      //i = 1;
-      //if (s1[i] == '\0'){return false;}}
-
-  while (s1[i] != '\0'){
-      if (s1[i] < 48 || s1[i] > 57){
-          return false;
-          }
-      i++;}
-  return true;
-}
 
 
 int Multipleofanumber(char *s1, int chislo){
-    if (!Cheaking(s1)){return -1;}
-
-    if(chislo< 0){
-          chislo = -chislo;
-          }
-    if (chislo==0){
-        return -1;}
-    int flag = 0;
-
-    if (s1[0] == '-'){
-        flag = 1;}
-    if (s1[0] == '\0' || s1[flag] =='\0'){return -1;}
-      int i = flag;
-      while(s1[i]!='\0'){
-          if(s1[i] < 48 || s1[i]> 57){
-              return -1;}
-          i++;}
-      i = flag;
-      int ostat = 0;
-      while(s1[i] != '\0'){
-          int delim = s1[i] - '0';
-          ostat = (10 * ostat + delim) % chislo;
-          i++;}
-      return (ostat);
+    if (!s1){return -2;}
+    if (s1[0]=='\0'){return -1;}
+    int i = 0;
+    //int flag = 0;
+    //if (s1[0] == '-'){
+        //flag = 1;}
+    //if (s1[0] == '\0' || s1[flag] =='\0'){return -1;}
+    //i = flag;
+    while(s1[i]!='\0'){
+        if(s1[i] < 48 || s1[i]> 57){
+            return -1;}
+          i++;
+}
+   // if(chislo< 0){
+         // chislo = -chislo;
+         // }
+    //if (chislo==0){
+        //return -1;}
+    i = 0;
+    int ostat = 0;
+    while(s1[i] != '\0'){
+        int delim = s1[i] - '0';
+        ostat = (10 * ostat + delim) % chislo;
+        i++;}
+    return (ostat);
 }
 
 
 
 int main()
 {
-    char s1[1000] = "124";
+    char s1[1000] = "9999999999992";
     char *null_test = NULL;
     int chislo = 4;
 
-    int res = Multipleofanumber(NULL,chislo);
+    int res = Multipleofanumber(s1,chislo);
     if(res==0){
       printf("Yes");}
     else if(res==-1){
-      printf("Error");}
+      printf("Error string");}
+    else if (res==-2){
+      printf("ERROR with NULL");}
     else{
       printf("No");}
     return 0;
