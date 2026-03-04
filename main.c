@@ -90,7 +90,7 @@ char* WritestringwithoutW(char *s1,char *w,char *news1){
               news1[k] ='\0';}
         i+= count;}
     return news1;}
-    return NULL;
+    return NULL;// сделать после пар очистку строки
 }
 int main()
 {
