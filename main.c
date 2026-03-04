@@ -28,6 +28,12 @@
 
 // abc,,,,abcd,,,,,,abcde,,,,,,abc | abc -> abcd abcde независимо от кол-во разделителей программа работает штатно
 
+
+//NULL | abc -> Error with NULL
+// abc | NULL -> Error with NULL
+
+//мусор | abc -> Ошибка code 11
+// abc | мусор -> Ошибка code 11
 int Compress(char *s1){ // Валидация строки
       int i = 0;
       int flag= 1;
@@ -95,10 +101,10 @@ int WritestringwithoutW(char *s1,char *w,int* news1){
     return 1;}
 int main()
 {
-    char s1[1000] = "asdads,abcd";// строка в которой пропускаем
+    char s1[1000] = "asdads,abcd. abe";// строка в которой пропускаем
     char w[1000] = "abc";// символ который пропускаем
     int news1[1000] = {0};
-    char *null_cheak = NULL;
+    char *null_cheak;
     int rescompresss1 = Compress(s1);
     if (rescompresss1 == -1){printf("Error with string s1"); return 0;}
 
