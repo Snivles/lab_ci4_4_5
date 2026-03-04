@@ -18,6 +18,7 @@
 // привет т / п�иве программа не сбрасывается , а ломаются символы в s1
 // привет та / ����� программа не сбрасывается , а ломаются символы в s1 даже если символ есть только в s2
 // привет а /  �р���т символа которйы есть в s2 нет в s1 но строка ломается
+// мусор  а  ИЛИ abc мусор /  выдает ошибку
 char* Stringcompaction(char *s1, char *s2){
     if(s1 && s2){
     int s3[256] = {0};
@@ -46,8 +47,8 @@ char* Stringcompaction(char *s1, char *s2){
 int main()
 {   char s1[1000] = "Привет";
     char s2[1000] = "xyz";
-    char *nullcheak = NULL;
-    char *res = Stringcompaction(s1,s2);
+    char *nullcheak;
+    char *res = Stringcompaction(s1,nullcheak);
     if (!res){printf("Error with NULL!");}
     else{printf("String s1 with s2 removed: %s\n",s1);}
     return 0;
