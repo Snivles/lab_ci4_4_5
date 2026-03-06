@@ -26,6 +26,7 @@ int Multipleofanumber(char *s1, int chislo){
     if (!s1){return -2;}
     if (s1[0]=='\0'){return -1;}
     int i = 0;
+    int ostat =0;
     //int flag = 0;
     //if (s1[0] == '-'){
         //flag = 1;}
@@ -34,31 +35,22 @@ int Multipleofanumber(char *s1, int chislo){
     while(s1[i]!='\0'){
         if(s1[i] < 48 || s1[i]> 57){
             return -1;}
-          i++;
-}
-   // if(chislo< 0){
-         // chislo = -chislo;
-         // }
-    //if (chislo==0){
-        //return -1;}
-    i = 0;
-    int ostat = 0;
-    while(s1[i] != '\0'){
+        else{
         int delim = s1[i] - '0';
-        ostat = (10 * ostat + delim) % chislo;
+        ostat = (10 * ostat + delim) % chislo;}
         i++;}
-    return (ostat);
+    return ostat;
 }
 
 
 
 int main()
 {
-    char s1[1000] = "9999999999992";
-    char *null_test = NULL;
+    char s1[1000] = "124";
+    char *null_test;
     int chislo = 4;
 
-    int res = Multipleofanumber(s1,chislo);
+    int res = Multipleofanumber(null_test,chislo);
     if(res==0){
       printf("Yes");}
     else if(res==-1){
