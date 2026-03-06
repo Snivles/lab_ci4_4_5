@@ -40,8 +40,7 @@ int Multipleofanumber(char *s1, int chislo){
         int delim = s1[i] - '0';
         ostat = (10 * ostat + delim) % chislo;}
         i++;}
-    if (ostat == 0){return 1;}
-    return -5;
+    return ostat;
 }
 
 
@@ -52,8 +51,8 @@ int main()
     char *null_test;
     int chislo = 4;
 
-    int res = Multipleofanumber(null_test,chislo);
-    if(res==1){
+    int res = Multipleofanumber(s1,chislo);
+    if(res==0){
       printf("Yes");}
     else if(res==-1){
       printf("Error string");}
