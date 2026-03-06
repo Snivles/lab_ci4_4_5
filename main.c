@@ -40,7 +40,7 @@ int Multipleofanumber(char *s1, int chislo){
         int delim = s1[i] - '0';
         ostat = (10 * ostat + delim) % chislo;}
         i++;}
-    return ostat;
+    return 0;
 }
 
 
