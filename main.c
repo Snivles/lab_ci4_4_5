@@ -27,6 +27,7 @@ int Multipleofanumber(char *s1, int chislo){
     if (s1[0]=='\0'){return -1;}
     int i = 0;
     int ostat =0;
+
     //int flag = 0;
     //if (s1[0] == '-'){
         //flag = 1;}
