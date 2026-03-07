@@ -45,60 +45,52 @@ int Rabotacode(char *s1,int i  ,char *slovo){
 
 
 int WritestringwithoutW(char *s1,char *w,int* news1){
-      if(!(s1&& w)){return -3;}
-      if (s1[0] == '\0'){return -1;}
-      int i = 0;
-      int flag= 1;
-      while (s1[i] != '\0' && flag == 1){
-          if (s1[i] == '.'){
-              s1[i] = '\0';
-              flag = 0;}
-          else if (s1[i] == ','){
-              s1[i] = ' '; i++;}
-          else if (s1[i] >= 97 && s1[i] <= 122){
-              i++;}
-          else if (s1[i] == ' '){
-              i++;}
-          else{
-              s1[0] = '\0';
-              return -1;}}
-    size_t lenw = strlen(w);
-
-    i = 0;
-    while (w[i] != '\0'){
-        if(w[i] == ' ' || w[i] == ','){
+    if(!(s1&& w)){return -3;}
+    if (s1[0] == '\0'){return -1;}
+    int i = 0;
+    while (w[i] != '\0'){ // слово которое нужно пропускать должно содержать строч буквы
+      if (!(w[i] >= 97 && w[i] <= 122)) {
           return -2;}
-        if (!(w[i] >= 97 && w[i] <= 122)) {
-            return -2;}
-        i++;}
-    int k = 0;
-    i = 0;
+      i++;}
 
-    while(s1[i]!='\0'){
-          if (s1[i] == ' ') {
-              i++;  // просто пропускаем разделитель
-              continue;}
+    i = 0;
+    int flag= 1;
+    int k = 0;
+
+    while(s1[i]!='\0' && flag == 1){
+        if (s1[i]== '.'){
+            s1[i] = '\0';
+            flag = 0;}
+
+        else if (s1[i] == ' ' || s1[i] == ',') {
+            i++;  // просто пропускаем разделитель
+            continue;}
+
+
+        else if (!(s1[i] >= 97 && s1[i] <= 122)){return -1;}
+        else{
           char slovo[1000] = "";
           int count = Rabotacode(s1,i,slovo);
-          int flag = 1;
+          int flag2 = 0;
 
+          size_t lenw = strlen(w);
 
-
-          if (count != (int)lenw){flag = 0;}// отличны по длине
+          if (count != (int)lenw){flag2 = 0;}// отличны по длине
           else{
             for (int j =0; j < count; j++){
-                if (slovo[j]!= w[j] && flag ==1){flag = 0;}}} //сравнение по символам
-          if (flag == 0){
+                if (slovo[j]!= w[j] && flag2 ==1){flag2 = 0;}}} //сравнение по символам
+          if (flag2 == 0){
               news1[k] = i;
               k++;}
         i+= count;}
     news1[k] = -1; //конец массива
     return 1;}
+}
 
 int main()
 {
-    char s1[1000] = "abc";// строка в которой пропускаем
-    char w[1000] = ",";// символ который пропускаем
+    char s1[1000] = "abcd";// строка в которой пропускаем
+    char w[1000] = "abc";// символ который пропускаем
     int news1[1000] = {0};
     char *null_cheak;
 
