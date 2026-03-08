@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 // abcdefg | cde -> abcdefg с 1 словом отличным от w работает исправно
 // abcdefg. | cde -> abcdefg с 1 словом отличным от w и точкой на конце работает хорошо и работает исправно
 // abcdefg. cdef | cde -> abcdefg с 1 словом словом до точки и 1 после отличными от w работает исправно тк мы не обрабатываем слова за точкой
@@ -35,75 +36,74 @@
 //мусор | abc -> Ошибка code 11
 // abc | мусор -> Ошибка code 11
 
-int Rabotacode(char *s1,int i  ,char *slovo){
+int Takeaword(char *s1,int i,char *slovo){
       int count = 0;//счетчик длины нынешнего слова
-      while (s1[i+count] != ' ' && s1[i+count] != '\0'){
+      bool cheak_razdel = (s1[i+count] == ',' || s1[i+count] == '.' || s1[i+count] == ' ' || s1[i+count] == '\0');
+      while (!cheak_razdel){
+            if(!(s1[i+count] >= 97 && s1[i+count] <= 122)){return -1;}
             slovo[count] = s1[i+count];
-            count++;}
+            count++;
+            cheak_razdel = (s1[i+count] == ',' || s1[i+count] == '.' || s1[i+count] == ' ' || s1[i+count] == '\0');}
       slovo[count] = '\0';// слово отлично от w
-      return count;}
+      return count;
+}
 
-int Compress(char *s1, char *w){
-    if(!(s1&& w)){return -3;}
-    if (s1[0] == '\0'){return -1;}
-    int i = 0;
-    int flag= 1;
-    while (s1[i] != '\0' && flag == 1){
-      if (s1[i] == '.'){
-        s1[i] = '\0';
-        flag = 0;}
-      else if (s1[i] == ','){
-        s1[i] = ' '; i++;}
-      else if (s1[i] >= 97 && s1[i] <= 122){
-        i++;}
-      else if (s1[i] == ' '){
-        i++;}
-      else{
-        s1[0] = '\0';
-        return -1;}}
-    i = 0;
-    while (w[i] != '\0'){
-        if (!(w[i] >= 97 && w[i] <= 122)) {
-            return -2;}
-        i++;}
-    return 1;
+
+int SravnenieSlov(char *w, int count,char *slovo){
+    int flag = 1;
+    size_t lenw = strlen(w);
+    if (count != (int)lenw){flag = 0;}// отличны по длине
+    else{
+      for (int j =0; j < count; j++){
+          if (slovo[j]!= w[j] && flag ==1){flag = 0;}}} //сравнение по символам
+    return flag;
 }
 
 
 
 int WritestringwithoutW(char *s1,char *w,int* news1){
+    if(!(s1&& w)){return -3;}
+    if (s1[0] == '\0'){return -1;}
     int k = 0;
     int i = 0;
-    size_t lenw = strlen(w);
-    while(s1[i]!='\0'){
-          if (s1[i] == ' ') {
+    while (w[i] != '\0'){
+        if (!(w[i] >= 97 && w[i] <= 122)) {
+            return -2;}
+        i++;}
+    i = 0;
+    bool cheak_razdel = s1[i] == ',' || s1[i] == '.' || s1[i] == ' ' || s1[i] == '\0';
+    bool cheak_simvol = (s1[i] >= 97 && s1[i] <= 122);
+    while (s1[i]!='\0'){
+      if (s1[i]=='.'){s1[i] ='\0'; continue;}
+      else if (s1[i] == ' ' || s1[i] == ',') {
               i++;  // просто пропускаем разделитель
               continue;}
-          char slovo[1000] = "";
-          int count = Rabotacode(s1,i,slovo);
-          int flag = 1;
+      else if(!(s1[i] >= 97 && s1[i] <= 122)){return -1;}
+      char slovo[1000] = "";
+      int count = Takeaword(s1,i,slovo);
+      if (count == -1){return -1;}
+      int sravnenieslov = SravnenieSlov(w,count,slovo);
 
-          if (count != (int)lenw){flag = 0;}// отличны по длине
-          else{
-            for (int j =0; j < count; j++){
-                if (slovo[j]!= w[j] && flag ==1){flag = 0;}}} //сравнение по символам
-          if (flag == 0){
+      if (sravnenieslov == 0){
               news1[k] = i;
               k++;}
-        i+= count;}
+        i+= count;
+      cheak_razdel = (s1[i] == ',' || s1[i] == '.' || s1[i] == ' ' || s1[i] == '\0');
+      cheak_simvol = (s1[i] >= 97 && s1[i] <= 122);
+        if (!(cheak_razdel || cheak_simvol) && s1[i] != '\0') {
+            return -1;
+        }}
     news1[k] = -1; //конец массива
     return 1;}
 
 int main()
 {
-    char s1[1000] = "";// строка в которой пропускаем
-    char w[1000] = "";// символ который пропускаем
+    char s1[1000] = "Fds";// строка в которой пропускаем
+    char w[1000] = "a";// символ который пропускаем
     int news1[1000] = {0};
-    char *null_cheak;
+    char *null_cheak = NULL;
 
-    int res = Compress(s1,w);
-    if (res == 1){
-    res = WritestringwithoutW(s1,w,news1);
+    int res = WritestringwithoutW(s1,w,news1);
     if(res==1){
       printf("Remaining words:");
       for(int i = 0; news1[i] != -1 ;i++){
@@ -113,8 +113,6 @@ int main()
                 j++;}
                 printf(" ");}
       return 0;}
-    else{
-      return 0;}}
     else if(res==-3){printf("Error with NULL");}
     else if(res == -2){printf("Error with string w");}
     else if(res==-1){printf("Error with string s1");}
