@@ -67,7 +67,8 @@ int WritestringwithoutW(char *s1,char *w,int* news1){
     int k = 0;
     int i = 0;
     while (w[i] != '\0'){
-        if (!(w[i] >= 97 && w[i] <= 122)) {
+        if ((w[i] >= 65 && w[i] <= 90)){i++; continue;}
+        else if (!(w[i] >= 97 && w[i] <= 122)) {
             return -2;}
         i++;}
     i = 0;
@@ -98,8 +99,8 @@ int WritestringwithoutW(char *s1,char *w,int* news1){
 
 int main()
 {
-    char s1[1000] = "Fds";// строка в которой пропускаем
-    char w[1000] = "a";// символ который пропускаем
+    char s1[1000] = "fds";// строка в которой пропускаем
+    char w[1000] = "Fasdas";// символ который пропускаем
     int news1[1000] = {0};
     char *null_cheak = NULL;
 
