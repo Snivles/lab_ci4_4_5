@@ -40,7 +40,8 @@ int Takeaword(char *s1,int i,char *slovo){
       int count = 0;//счетчик длины нынешнего слова
       bool cheak_razdel = (s1[i+count] == ',' || s1[i+count] == '.' || s1[i+count] == ' ' || s1[i+count] == '\0');
       while (!cheak_razdel){
-            if(!(s1[i+count] >= 97 && s1[i+count] <= 122)){return -1;}
+            if(!(s1[i+count] >= 97 && s1[i+count] <= 122)){
+                return -1;}
             slovo[count] = s1[i+count];
             count++;
             cheak_razdel = (s1[i+count] == ',' || s1[i+count] == '.' || s1[i+count] == ' ' || s1[i+count] == '\0');}
@@ -52,48 +53,58 @@ int Takeaword(char *s1,int i,char *slovo){
 int SravnenieSlov(char *w, int count,char *slovo){
     int flag = 1;
     size_t lenw = strlen(w);
-    if (count != (int)lenw){flag = 0;}// отличны по длине
+    if (count != (int)lenw){
+          flag = 0;}// отличны по длине
     else{
       for (int j =0; j < count; j++){
-          if (slovo[j]!= w[j] && flag ==1){flag = 0;}}} //сравнение по символам
+          if (slovo[j]!= w[j] && flag ==1){
+              flag = 0;}}} //сравнение по символам
     return flag;
 }
 
 
 
 int WritestringwithoutW(char *s1,char *w,int* news1){
-    if(!(s1&& w)){return -3;}
-    if (s1[0] == '\0'){return -1;}
+    if(!(s1&& w)){
+          return -3;}
+    if (s1[0] == '\0'){
+          return -1;}
     int k = 0;
     int i = 0;
     while (w[i] != '\0'){
-        if ((w[i] >= 65 && w[i] <= 90)){i++; continue;}
+        if ((w[i] >= 65 && w[i] <= 90)){
+          i++;
+          continue;}
         else if (!(w[i] >= 97 && w[i] <= 122)) {
-            return -2;}
+          return -2;}
         i++;}
     i = 0;
     bool cheak_razdel = s1[i] == ',' || s1[i] == '.' || s1[i] == ' ' || s1[i] == '\0';
     bool cheak_simvol = (s1[i] >= 97 && s1[i] <= 122);
     while (s1[i]!='\0'){
-      if (s1[i]=='.'){s1[i] ='\0'; continue;}
+      if (s1[i]=='.'){
+          s1[i] ='\0';
+          continue;}
       else if (s1[i] == ' ' || s1[i] == ',') {
-              i++;  // просто пропускаем разделитель
-              continue;}
-      else if(!(s1[i] >= 97 && s1[i] <= 122)){return -1;}
+          i++;  // просто пропускаем разделитель
+          continue;}
+      else if(!(s1[i] >= 97 && s1[i] <= 122)){
+          return -1;}
       char slovo[1000] = "";
       int count = Takeaword(s1,i,slovo);
-      if (count == -1){return -1;}
+      if (count == -1){
+          return -1;}
       int sravnenieslov = SravnenieSlov(w,count,slovo);
 
       if (sravnenieslov == 0){
-              news1[k] = i;
-              k++;}
-        i+= count;
+          news1[k] = i;
+          k++;}
+      i+= count;
       cheak_razdel = (s1[i] == ',' || s1[i] == '.' || s1[i] == ' ' || s1[i] == '\0');
       cheak_simvol = (s1[i] >= 97 && s1[i] <= 122);
-        if (!(cheak_razdel || cheak_simvol) && s1[i] != '\0') {
-            return -1;
-        }}
+      if (!(cheak_razdel || cheak_simvol) && s1[i] != '\0') {
+          return -1;}
+}
     news1[k] = -1; //конец массива
     return 1;}
 
@@ -110,7 +121,8 @@ int main()
       for(int i = 0; news1[i] != -1 ;i++){
           char slovo[1000] = "";
           int len = Takeaword(s1,news1[i],slovo);
-          if (len>0){printf("%s",slovo);}
+          if (len>0){
+            printf("%s",slovo);}
       return 0;}}
     else if(res==-3){printf("Error with NULL");}
     else if(res == -2){printf("Error with string w");}
