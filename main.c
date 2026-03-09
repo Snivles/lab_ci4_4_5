@@ -108,12 +108,10 @@ int main()
     if(res==1){
       printf("Remaining words:");
       for(int i = 0; news1[i] != -1 ;i++){
-              int j = news1[i];
-              while (s1[j] != ' ' && s1[j] != '\0'){
-                printf("%c",s1[j]);
-                j++;}
-                printf(" ");}
-      return 0;}
+          char slovo[1000] = "";
+          int len = Takeaword(s1,news1[i],slovo);
+          if (len>0){printf("%s",slovo);}
+      return 0;}}
     else if(res==-3){printf("Error with NULL");}
     else if(res == -2){printf("Error with string w");}
     else if(res==-1){printf("Error with string s1");}
