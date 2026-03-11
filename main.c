@@ -35,20 +35,28 @@
 
 //мусор | abc -> Ошибка code 11
 // abc | мусор -> Ошибка code 11
-int ProverkaWoda(char *s1, char *w,size_t lenw){
+
+//fdsd. F |  fds -> fdsd
+//fdsd. F | fdsd -> пустота
+int ProverkaWoda(char *s1, char *w,size_t lenw, int *s, int *e){
     if(!(s1&& w)){
           return -3;}
     if (s1[0] == '\0' || s1[0] == ' '){
           return -1;}
-    int i = 0;
-    while (w[i] != '\0'){
+
+    int wS = 0;
+    while (wS <= (int)lenw && w[wS] == ' '){
+          wS++;}
+    int wE = (int)lenw - 1;
+    while (wE >= wS && w[wE] == ' '){
+          wE--;}
+    for (int i = wS; i< wE; i++){
         if ((w[i] >= 65 && w[i] <= 90)){
-          i++;
           continue;}
         else if (!(w[i] >= 97 && w[i] <= 122)) {
-          return -2;}
-        i++;}
-    i = 0;
+          return -2;}}
+
+    int i = 0;
     while (s1[i] != '\0'){
         if (s1[i] == '.'){
             s1[i] = '\0';
@@ -59,6 +67,8 @@ int ProverkaWoda(char *s1, char *w,size_t lenw){
             return -1;}
         else{
         i++;}}
+    *s = wS;
+    *e = wE;
     return 1; // если w и s1 содержат допустимые символы , то работаем с ними
 }
 int FindLenofWord(char *s1,int i,char *slovo){ // получаем на вход s1(исходная строка) , i - начало нового слова , slovo-само слово которое делаем
@@ -76,13 +86,14 @@ int FindLenofWord(char *s1,int i,char *slovo){ // получаем на вход
 }
 
 
-int SravnenieSlov(char *w, size_t lenw ,char *slovo,int count){
+int SravnenieSlov(char *w, int wS , int wE ,char *slovo,int count){
+    int lenw = wE-wS + 1;
     int flag = 1;
-    if (count != (int)lenw){
+    if (count != lenw){
           flag = 0;}// отличны по длине
     else{
       for (int j =0; j < count; j++){
-          if (slovo[j]!= w[j] && flag ==1){
+          if (slovo[j]!= w[wS+j] && flag ==1){
               flag = 0;}}} //сравнение по символам
     return flag;
 }
@@ -90,7 +101,9 @@ int SravnenieSlov(char *w, size_t lenw ,char *slovo,int count){
 
 int PoiskNachalSlov(char *s1,char *w,int* news1){
     size_t lenw = strlen(w);
-    int res_compress = ProverkaWoda(s1,w , lenw);
+    int wS=0;
+    int wE=0;
+    int res_compress = ProverkaWoda(s1,w , lenw,&wS,&wE);
     if (res_compress!=1){
         return res_compress;}
 
@@ -105,7 +118,7 @@ int PoiskNachalSlov(char *s1,char *w,int* news1){
       char slovo[1000] = "";
       int count = FindLenofWord(s1,i,slovo);
       if (count == -4){return -1;}
-      int sravnenieslov = SravnenieSlov(w,lenw,slovo,count);
+      int sravnenieslov = SravnenieSlov(w,wS,wE,slovo,count);
 
       if (sravnenieslov == 0){
           news1[k] = i;
@@ -116,8 +129,8 @@ int PoiskNachalSlov(char *s1,char *w,int* news1){
 
 int main()
 {
-    char s1[1000] = "fds . F";// строка в которой пропускаем
-    char w[1000] = "a";// символ который пропускаем
+    char s1[1000] = "fdsd. F";// строка в которой пропускаем
+    char w[1000] = " ";// символ который пропускаем
     int news1[1000] = {0};
     char *null_cheak = NULL;
     int res = PoiskNachalSlov(s1,w,news1);
