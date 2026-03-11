@@ -73,7 +73,7 @@ int main()
     int res = MakingNumber(s1);
     if (det<0){det = -det;}
     if (det==INT_MIN){
-      printf("del is overflow");
+      printf("det is overflow");
       return 0;}
     if (det == 0){
       printf("Division on zero");
