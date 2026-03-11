@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <limits.h>
 // s1 = 124 s2 = 4 /кратно
 // s1 =125 s2 = 4 / нет
 // s1 = A1224 s2 = 4/ Ошибка
@@ -67,12 +68,13 @@ int main()
 {
     char s1[1000] = "     -4444  ";
     char *null_test = NULL;
-    int det = -44;
+    int det = -2147483648;
 
     int res = MakingNumber(s1);
     if (det<0){det = -det;}
-    if (det >2147483647){
-        printf("Error with overflow");}
+    if (det==INT_MIN){
+      printf("del is overflow");
+      return 0;}
     if (det == 0){
       printf("Division on zero");
       return 0;}
