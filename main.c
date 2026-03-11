@@ -71,6 +71,8 @@ int main()
 
     int res = MakingNumber(s1);
     if (det<0){det = -det;}
+    if (det >2147483647){
+        printf("Error with overflow");}
     if (det == 0){
       printf("Division on zero");
       return 0;}
