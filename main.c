@@ -55,7 +55,8 @@ int ProverkaWoda(char *s1, char *w,size_t lenw, int *s, int *e){
           continue;}
         else if (!(w[i] >= 97 && w[i] <= 122)) {
           return -2;}}
-
+    *s = wS;
+    *e = wE;
     int i = 0;
     while (s1[i] != '\0'){
         if (s1[i] == '.'){
@@ -67,8 +68,6 @@ int ProverkaWoda(char *s1, char *w,size_t lenw, int *s, int *e){
             return -1;}
         else{
         i++;}}
-    *s = wS;
-    *e = wE;
     return 1; // если w и s1 содержат допустимые символы , то работаем с ними
 }
 int FindLenofWord(char *s1,int i,char *slovo){ // получаем на вход s1(исходная строка) , i - начало нового слова , slovo-само слово которое делаем
@@ -114,10 +113,12 @@ int PoiskNachalSlov(char *s1,char *w,int* news1){
       if (s1[i] == ' ' || s1[i] == ','){
           i++;
           continue;}
-      if (s1[i] == '\0'){continue;}
+      if (s1[i] == '\0'){
+          continue;}
       char slovo[1000] = "";
       int count = FindLenofWord(s1,i,slovo);
-      if (count == -4){return -1;}
+      if (count == -4){
+          return -1;}
       int sravnenieslov = SravnenieSlov(w,wS,wE,slovo,count);
 
       if (sravnenieslov == 0){
@@ -142,8 +143,11 @@ int main()
           if (len>0){
             printf("%s ",slovo);}}
       return 0;}
-    else if(res==-3){printf("Error with NULL");}
-    else if(res == -2){printf("Error with string w");}
-    else if(res==-1){printf("Error with string s1");}
+    else if(res==-3){
+      printf("Error with NULL");}
+    else if(res == -2){
+      printf("Error with string w");}
+    else if(res==-1){
+      printf("Error with string s1");}
     return 0;
 }
