@@ -24,19 +24,32 @@
 // s1 = 2147483646 s2 = 4 ; NO
 // s1 =  2147483644 s2 = 4 ; YES
 // s1 = 2147483644 s2 = 4 ; YES
-int Multipleofanumber(char *s1){
+// s1 =      -2147483648   s2= 4; ERROR
+// s1 =      -2147483647   s2= 4; NO
+// s1 =     -5       s2 = 123123; NO
+// s1 = 4444444444 s2 = 4444 ; ERROR string
+// s1 = 4444 s2 = 44 ; YES
+// s1 = 4444 s2 = -44 ; YES
+// s1 = 4444 s2 = 0 ; division on zero
+// s1 = 123 s2 = 123123 ; NO
+// s1 = -4444 s2 = -44 ; YES
+int MakingNumber(char *s1){
     if (!s1){return -3;}
     if (s1[0]=='\0'){return -1;}
     int i = 0;
     int chislo =0;
+    int znak = 1;
     size_t len = strlen(s1);
-    //int flag = 0;
-    //if (s1[0] == '-'){
-        //flag = 1;}
-    //if (s1[0] == '\0' || s1[flag] =='\0'){return -1;}
-    //i = flag;
-    if (s1[i] == ' '){i++;}
-    if (s1[len-1] >= 0 && s1[len-1]==' '){len--;}
+    while (i<= (int)len -1 && s1[i] == ' '){
+          i++;}
+    if (s1[i]=='-' || s1[i] =='+'){
+          if (s1[i]== '-'){
+            znak = -1;}
+          i++;
+}
+    while ((int)len - 1 >= i && s1[len-1] == ' '){
+          len = (int)len -1;
+}
     for (i; i < (int)len ; i++){
         if(s1[i] < 48 || s1[i]> 57){
             return -1;}
@@ -45,18 +58,22 @@ int Multipleofanumber(char *s1){
         if (chislo > (2147483647 - delim) / 10) {
                 return -1; }
         chislo = (10 * chislo + delim);}}
-    return chislo;
+    return chislo*znak;
 }
 
 
 
 int main()
 {
-    char s1[1000] = " 2147483644";
+    char s1[1000] = "     -4444  ";
     char *null_test = NULL;
-    int det = 213123;
+    int det = -44;
 
-    int res = Multipleofanumber(s1);
+    int res = MakingNumber(s1);
+    if (det<0){det = -det;}
+    if (det == 0){
+      printf("Division on zero");
+      return 0;}
     if(res%det==0){
       printf("Yes");}
     else if(res==-1){
