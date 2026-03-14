@@ -38,116 +38,88 @@
 
 //fdsd. F |  fds -> fdsd
 //fdsd. F | fdsd -> пустота
-int ProverkaWoda(char *s1, char *w,size_t lenw, int *s, int *e){
-    if(!(s1&& w)){
-          return -3;}
-    if (s1[0] == '\0' || s1[0] == ' '){
-          return -1;}
 
-    int wS = 0;
-    while (wS <= (int)lenw && w[wS] == ' '){
-          wS++;}
-    int wE = (int)lenw - 1;
-    while (wE >= wS && w[wE] == ' '){
-          wE--;}
-    for (int i = wS; i< wE; i++){
-        if ((w[i] >= 65 && w[i] <= 90)){
-          continue;}
-        else if (!(w[i] >= 97 && w[i] <= 122)) {
-          return -2;}}
-    *s = wS;
-    *e = wE;
-    int i = 0;
-    while (s1[i] != '\0'){
-        if (s1[i] == '.'){
-            s1[i] = '\0';
-            continue;}
-        else if(s1[i] == ',' || s1[i] == ' '){
-            i++;}
-        else if(!(s1[i] >= 97 && s1[i] <= 122)){
-            return -1;}
-        else{
-        i++;}}
-    return 1; // если w и s1 содержат допустимые символы , то работаем с ними
+int Validation(char *text)
+{
+  if (!text){return -3;}
+  if (text[0] == '\0'){return -1;}
+  int i=0;
+  while (text[i] == ' '){i++;}
+  if(i > 0){
+    int j = 0;
+    while (text[i] != '\0'){text[j] = text[i]; i++;j++;}
+    text[j] = '\0';}
+  bool flag = false;
+  i = 0;
+  int count= 0;
+  while (text[i] != '\0'){
+      if(text[i] == ',' || text[i] == ' '){
+          if(flag){
+              count++;
+              flag = false;}
+          i++;}
+      else if (text[i] >= 97 && text[i] <= 122){flag = 1; i++;}
+      else if (text[i] == '.'){continue;}
+      else{return -1;}}
+
+
+  if (flag){count++;}
+  if(count ==0){return -1;}
+  printf("%s",text);
+  return count;
 }
-int FindLenofWord(char *s1,int i,char *slovo){ // получаем на вход s1(исходная строка) , i - начало нового слова , slovo-само слово которое делаем
-      int count = 0;//счетчик длины нового слова
-      if (s1[i] == '\0') {
-          slovo[0] = '\0';
+
+int Dlina_W(char *slovo){
+  int res = Validation(slovo);
+  if(res != 1){return -2;}
+  int i = 0;
+  int dlina = 0;
+  while(slovo[dlina] != '\0' && slovo[dlina] != ' '){
+      dlina ++;}
+  return dlina;
+}
+
+int FindLenofWord(char *text,int i){ // получаем на вход s1(исходная строка) , i - начало нового слова , slovo-само слово которое делаем
+      int dlina = 0;//счетчик длины нового слова
+      if (text[i] == '\0') {
           return -4;}
-      bool cheak_razdel = (s1[i+count] == ',' || s1[i+count] == ' ' || s1[i+count] == '\0');
+      bool cheak_razdel = (text[i+dlina] == ',' || text[i+dlina] == ' ' || text[i+dlina] == '\0');
       while (!cheak_razdel){ // идем пока не встретим разделитель
-            slovo[count] = s1[i+count];
-            count++;
-            cheak_razdel = (s1[i+count] == ',' || s1[i+count] == ' ' || s1[i+count] == '\0');}
-      slovo[count] = '\0';// слово отлично от w
-      return count; // возвращаем длину слова которое нашли
+            dlina++;
+            cheak_razdel = (text[i+dlina] == ',' || text[i+dlina] == ' ' || text[i+dlina] == '\0');}
+      return dlina; // возвращаем длину слова которое нашли
 }
 
 
-int SravnenieSlov(char *w, int wS , int wE ,char *slovo,int count){
-    int lenw = wE-wS + 1;
-    int flag = 1;
-    if (count != lenw){
+int SravnenieSlov(char *slovo1, int start1, char *slovo2, int start2){ // слово1 начало 1 слова слово2 начало 2 слова
+    int len1 = FindLenofWord(slovo1,start1);
+    int len2 = FindLenofWord(slovo2,start2);
+    bool flag = true;
+    if (len1 != len2){
           flag = 0;}// отличны по длине
     else{
-      for (int j =0; j < count; j++){
-          if (slovo[j]!= w[wS+j] && flag ==1){
-              flag = 0;}}} //сравнение по символам
+      for (int j =0; j < len2; j++){
+          if (slovo1[start1 + j]!= slovo2[start2+j] && flag ==true){
+              flag = false;}}} //сравнение по символам
     return flag;
 }
 
 
-int PoiskNachalSlov(char *s1,char *w,int* news1){
-    size_t lenw = strlen(w);
-    int wS=0;
-    int wE=0;
-    int res_compress = ProverkaWoda(s1,w , lenw,&wS,&wE);
-    if (res_compress!=1){
-        return res_compress;}
-
-    int k = 0;
-    int i = 0;
-    i = 0;
-    while (s1[i]!='\0'){
-      if (s1[i] == ' ' || s1[i] == ','){
-          i++;
-          continue;}
-      if (s1[i] == '\0'){
-          continue;}
-      char slovo[1000] = "";
-      int count = FindLenofWord(s1,i,slovo);
-      if (count == -4){
-          return -1;}
-      int sravnenieslov = SravnenieSlov(w,wS,wE,slovo,count);
-
-      if (sravnenieslov == 0){
-          news1[k] = i;
-          k++;}
-      i+= count;}
-    news1[k] = -1; //конец массива
-    return 1;}
-
 int main()
 {
-    char s1[1000] = "fdsd. F";// строка в которой пропускаем
-    char w[1000] = " ";// символ который пропускаем
+    char s1[1000] = "  affasd asd ";// строка в которой пропускаем
+    char w[1000] = "  fasd ";// символ который пропускаем
     int news1[1000] = {0};
     char *null_cheak = NULL;
-    int res = PoiskNachalSlov(s1,w,news1);
-    if(res ==1){
-      printf("Remeining words:");
-      for(int i = 0; news1[i] != -1 ;i++){
-          char slovo[1000] = "";
-          int len = FindLenofWord(s1,news1[i],slovo);
-          if (len>0){
-            printf("%s ",slovo);}}
-      return 0;}
-    else if(res==-3){
-      printf("Error with NULL");}
-    else if(res == -2){
-      printf("Error with string w");}
-    else if(res==-1){
-      printf("Error with string s1");}
+
+
+
+    int res = Validation(s1);
+    printf("%d\n",res);
+    res = Dlina_W(w);
+
+    printf("%d",res);
+
+
     return 0;
 }
