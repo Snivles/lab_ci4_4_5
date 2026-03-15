@@ -50,43 +50,34 @@ int Validation(char *text)
     while (text[i] != '\0'){text[j] = text[i]; i++;j++;}
     text[j] = '\0';}
   bool flag = false;
+  bool dot = false;
   i = 0;
   int count= 0;
-  while (text[i] != '\0'){
-      if(text[i] == ',' || text[i] == ' '){
+  while (text[i] != '\0' && !dot){
+      if (text[i] == '.'){dot = true; continue;}
+      else if(text[i] == ',' || text[i] == ' '){
           if(flag){
               count++;
               flag = false;}
           i++;}
       else if (text[i] >= 97 && text[i] <= 122){flag = 1; i++;}
-      else if (text[i] == '.'){continue;}
       else{return -1;}}
 
 
   if (flag){count++;}
   if(count ==0){return -1;}
-  printf("%s",text);
   return count;
 }
 
-int Dlina_W(char *slovo){
-  int res = Validation(slovo);
-  if(res != 1){return -2;}
-  int i = 0;
-  int dlina = 0;
-  while(slovo[dlina] != '\0' && slovo[dlina] != ' '){
-      dlina ++;}
-  return dlina;
-}
 
 int FindLenofWord(char *text,int i){ // получаем на вход s1(исходная строка) , i - начало нового слова , slovo-само слово которое делаем
       int dlina = 0;//счетчик длины нового слова
       if (text[i] == '\0') {
           return -4;}
-      bool cheak_razdel = (text[i+dlina] == ',' || text[i+dlina] == ' ' || text[i+dlina] == '\0');
+      bool cheak_razdel = (text[i+dlina] == ',' || text[i+dlina] == ' ' || text[i+dlina] == '\0' || text[i+dlina] == '.');
       while (!cheak_razdel){ // идем пока не встретим разделитель
             dlina++;
-            cheak_razdel = (text[i+dlina] == ',' || text[i+dlina] == ' ' || text[i+dlina] == '\0');}
+            cheak_razdel = (text[i+dlina] == ',' || text[i+dlina] == ' ' || text[i+dlina] == '\0'|| text[i+dlina] == '.');}
       return dlina; // возвращаем длину слова которое нашли
 }
 
@@ -103,23 +94,51 @@ int SravnenieSlov(char *slovo1, int start1, char *slovo2, int start2){ // сло
               flag = false;}}} //сравнение по символам
     return flag;
 }
-
+int RabotaCode(char *text, char *slovo, int *massive){
+  if (Validation(slovo) <= 0){return -2;}
+  if (FindLenofWord(slovo,0)<=0){return -2;}
+  int i = 0;
+  int k = 0;
+  while (text[i] != '\0'){
+    if (text[i] == '.'){text[i] = '\0'; continue;}
+    else if (text[i] == ',' || text[i] == ' '){i++;}
+    else{
+        int wordlen = FindLenofWord(text,i);
+        if(!SravnenieSlov(text,i,slovo,0)){
+            massive[k] = i;
+            k++;}
+        i = i+wordlen;}}
+  massive[k] = -1;
+  return 1;
+}
+void PrintWordsAtPositions(char *text, int *massive) {
+    int k = 0;
+    while (massive[k] != -1){
+        int startw = massive[k];
+        int len = FindLenofWord(text, startw);
+        printf(" ");
+        for (int j = 0; j < len; j++) {
+            printf("%c", text[startw + j]);}
+        k++;
+    }
+}
 
 int main()
 {
-    char s1[1000] = "  affasd asd ";// строка в которой пропускаем
-    char w[1000] = "  fasd ";// символ который пропускаем
-    int news1[1000] = {0};
+    char s1[1000] = "cde abcd.";// строка в которой пропускаем
+    char w[1000] = " cde ";// символ который пропускаем
+    int starts[1000] = {0};
     char *null_cheak = NULL;
 
-
-
     int res = Validation(s1);
-    printf("%d\n",res);
-    res = Dlina_W(w);
-
-    printf("%d",res);
-
-
+    if (res < 0) {
+        printf("Error string");
+        return 0;
+    }
+    res = RabotaCode(s1, w, starts);
+    if (res < 0){
+        printf("Error!");
+        return 0;}
+    PrintWordsAtPositions(s1, starts);
     return 0;
 }
