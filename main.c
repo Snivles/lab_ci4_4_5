@@ -76,6 +76,7 @@ int GetValidWordCount(char *text)
 
 
 int FindLenofWord(char *text,int i){ // получаем на вход s1(исходная строка) , i - начало нового слова , slovo-само слово которое делаем
+      if (i < 0){return -4;}
       int dlina = 0;//счетчик длины нового слова
       if (text[i] == '\0') {
           return -4;}
@@ -99,7 +100,7 @@ int SravnenieSlov(char *slovo1, int start1, char *slovo2, int start2){ // сло
               flag = false;}}} //сравнение по символам
     return flag;
 }
-int RabotaCode(char *text, char *slovo, int *massive){
+int ZapolnineMassive(char *text, char *slovo, int *massive){
   if (!slovo || !text){return -3;}
   if (!(slovo == NULL || slovo[0] == '\0' || GetValidWordCount(slovo) == 0)){
     if (GetValidWordCount(slovo) < 0){return -2;}
@@ -146,7 +147,7 @@ int main()
         else{printf("Error string");}
         return 0;
     }
-    res = RabotaCode(s1, w, starts);
+    res = ZapolnineMassive(s1, w, starts);
     if (res <= 0){
         if (res == -3){printf("Error with NULL");}
         else{
