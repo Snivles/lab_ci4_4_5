@@ -113,20 +113,23 @@ int RabotaCode(char *text, char *slovo, int *massive){
         int wordlen = FindLenofWord(text,i);
         if(!SravnenieSlov(text,i,slovo,0)){
             massive[k] = i;
+            k++;
+            massive[k]= wordlen;
             k++;}
         i = i+wordlen;}}
   massive[k] = -1;
+  massive[k+1] = 0;
   return 1;
 }
 void PrintWords(char *text, int *massive) {
     int k = 0;
     while (massive[k] != -1){
         int startw = massive[k];
-        int len = FindLenofWord(text, startw);
+        int len = massive[k+1];
         printf(" ");
         for (int j = 0; j < len; j++) {
             printf("%c", text[startw + j]);}
-        k++;
+        k += 2;
     }
 }
 
