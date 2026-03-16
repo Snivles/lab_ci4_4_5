@@ -44,7 +44,7 @@
 // aaa ||"  f    " -> aaa
 //ads asd . пав a || ads asd -> asd
 //ads asd . пав || ads. -> asd
-// char s1[1000] = "today is a beautiful day. The sun is shining, and the sky is blue. I am sitting in the park with my friend. We are drinking coffee and eating cookies. Children are running, and birds are singing. I love this peaceful atmosphere. It is the perfect day to relax and be happy";// строка в которой пропускаем
+// char s1[1000] = "today is a beautiful day. The sun is shining, and the sky is blue. I am sitting in the park with my friend.";// строка в которой пропускаем
 int GetValidWordCount(char *text)
 {
   if (!text){return -3;}
