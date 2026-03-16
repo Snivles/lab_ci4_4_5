@@ -40,6 +40,8 @@
 //fdsd. F | fdsd -> пустота
 
 
+// aaa ||"     " -> aaa
+// aaa ||"  f    " -> aaa
 //ads asd . пав a || ads asd -> asd
 //ads asd . пав || ads. -> asd
 // char s1[1000] = "today is a beautiful day. The sun is shining, and the sky is blue. I am sitting in the park with my friend. We are drinking coffee and eating cookies. Children are running, and birds are singing. I love this peaceful atmosphere. It is the perfect day to relax and be happy";// строка в которой пропускаем
@@ -98,8 +100,8 @@ int SravnenieSlov(char *slovo1, int start1, char *slovo2, int start2){ // сло
     return flag;
 }
 int RabotaCode(char *text, char *slovo, int *massive){
-  if (!slovo){return -3;}
-  if (!(slovo == NULL || slovo[0] == '\0')){
+  if (!slovo || !text){return -3;}
+  if (!(slovo == NULL || slovo[0] == '\0' || GetValidWordCount(slovo) == 0)){
     if (GetValidWordCount(slovo) < 0){return -2;}
     if (FindLenofWord(slovo,0)<=0){return -2;}}
   int i = 0;
@@ -130,23 +132,23 @@ void PrintWords(char *text, int *massive) {
 
 int main()
 {
-    char s1[1000] = "ads dsa fasd.";// строка в которой пропускаем
-    char w[1000] = "ads dsa.";// символ который пропускаем
+    char s1[1000] = "aaa";// строка в которой пропускаем
+    char w[1000] = "   f  ";// символ который пропускаем
     int starts[1000] = {0};
     char *null_cheak = NULL;
 
     int res = GetValidWordCount(s1);
-    if (res < 0) {
+    if (res <= 0) {
         if (res == -3){printf("Error with NULL");}
         else{printf("Error string");}
         return 0;
     }
     res = RabotaCode(s1, w, starts);
-    if (res < 0){
+    if (res <= 0){
         if (res == -3){printf("Error with NULL");}
         else{
         printf("Error!");}
         return 0;}
-    PrintWords(s1, starts);
+    PrintWords(s1, starts);// w = " " -> count = 0 -> getval goes to
     return 0;
 }
