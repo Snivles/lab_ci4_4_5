@@ -39,7 +39,11 @@
 //fdsd. F |  fds -> fdsd
 //fdsd. F | fdsd -> пустота
 
-int Validation(char *text)
+
+//ads asd . пав a || ads asd -> asd
+//ads asd . пав || ads. -> asd
+// char s1[1000] = "today is a beautiful day. The sun is shining, and the sky is blue. I am sitting in the park with my friend. We are drinking coffee and eating cookies. Children are running, and birds are singing. I love this peaceful atmosphere. It is the perfect day to relax and be happy";// строка в которой пропускаем
+int GetValidWordCount(char *text)
 {
   if (!text){return -3;}
   if (text[0] == '\0'){return -1;}
@@ -65,7 +69,6 @@ int Validation(char *text)
 
 
   if (flag){count++;}
-  if(count ==0){return -1;}
   return count;
 }
 
@@ -95,8 +98,10 @@ int SravnenieSlov(char *slovo1, int start1, char *slovo2, int start2){ // сло
     return flag;
 }
 int RabotaCode(char *text, char *slovo, int *massive){
-  if (Validation(slovo) <= 0){return -2;}
-  if (FindLenofWord(slovo,0)<=0){return -2;}
+  if (!slovo){return -3;}
+  if (!(slovo == NULL || slovo[0] == '\0')){
+    if (GetValidWordCount(slovo) < 0){return -2;}
+    if (FindLenofWord(slovo,0)<=0){return -2;}}
   int i = 0;
   int k = 0;
   while (text[i] != '\0'){
@@ -111,7 +116,7 @@ int RabotaCode(char *text, char *slovo, int *massive){
   massive[k] = -1;
   return 1;
 }
-void PrintWordsAtPositions(char *text, int *massive) {
+void PrintWords(char *text, int *massive) {
     int k = 0;
     while (massive[k] != -1){
         int startw = massive[k];
@@ -125,20 +130,23 @@ void PrintWordsAtPositions(char *text, int *massive) {
 
 int main()
 {
-    char s1[1000] = "cde abcd.";// строка в которой пропускаем
-    char w[1000] = " cde ";// символ который пропускаем
+    char s1[1000] = "ads dsa fasd.";// строка в которой пропускаем
+    char w[1000] = "ads dsa.";// символ который пропускаем
     int starts[1000] = {0};
     char *null_cheak = NULL;
 
-    int res = Validation(s1);
+    int res = GetValidWordCount(s1);
     if (res < 0) {
-        printf("Error string");
+        if (res == -3){printf("Error with NULL");}
+        else{printf("Error string");}
         return 0;
     }
     res = RabotaCode(s1, w, starts);
     if (res < 0){
-        printf("Error!");
+        if (res == -3){printf("Error with NULL");}
+        else{
+        printf("Error!");}
         return 0;}
-    PrintWordsAtPositions(s1, starts);
+    PrintWords(s1, starts);
     return 0;
 }
